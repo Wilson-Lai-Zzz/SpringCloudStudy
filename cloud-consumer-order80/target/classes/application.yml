@@ -1,0 +1,21 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: cloud-order-service
+
+# Eureka Client相关配置
+eureka:
+  client:
+    register-with-eureka: true #true表示是否将自己注册到EurekaServer默认为true
+    fetch-registry: true #是否从EurekaServer抓取已有的注册信息，默认true，单节点无所谓，集群必须设置为true才能配合ribbon使用负载均衡
+    registry-fetch-interval-seconds: 1 # 到Eureka Server抓取注册信息的时间
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka #集群版本的，将其注册到多个注册中心
+#      defaultZone: http://localhost:7001/eureka #注册中心地址（单台注册中心）
+  instance:
+    instance-id: order80 #完善Eureka Server的服务信息，一般设置为服务器ip:端口
+    prefer-ip-address: true #访问路径可以显式ip地址
+    lease-renewal-interval-in-seconds: 1      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 2  # 发呆时间，即服务续约到期时间（缺省为90s）

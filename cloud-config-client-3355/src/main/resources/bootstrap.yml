@@ -1,0 +1,24 @@
+server:
+  port: 3355
+spring:
+  application:
+    name: config-client-3355
+  cloud:
+#    config客户端配置
+    config:
+      label: master #分支名称
+      name: config #配置文件名称,配置文件命名格式：文件名称-分支名称.yml
+      profile: dev #读取后缀名称
+      uri: http://localhost:3344 #配置中心的地址  上述3个综合：master分支上的config-dev.yml的配置文件，在配置中心http://localhost:3344/master/config-dev.yml读取
+
+# Eureka Client相关配置
+eureka:
+  instance:
+    instance-id: config-client3355 #完善Eureka Server的服务信息，一般设置为服务器ip:端口
+
+#暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

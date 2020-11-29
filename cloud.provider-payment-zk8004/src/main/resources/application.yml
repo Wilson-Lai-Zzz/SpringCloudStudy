@@ -1,0 +1,10 @@
+server:
+  port: 8004
+
+#配置zookeeper
+spring:
+  application:
+    name: cloud-provider-payment-zk #服务别名————————注册zookeeper到注册中心的别名
+  cloud:
+    zookeeper:
+      connect-string: 127.0.0.1:2181 #配置zookeeper的连接地址

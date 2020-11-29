@@ -1,0 +1,44 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-center #注册进Euraka服务器的微服务名
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Wilson-Lai-Zzz/study-spring-cloud-config-test.git  #Git上面的仓库名称
+#          搜索目录，如果再git的根目录下的配置文件可以不写搜索目录，但是如果是根目录下的文件夹下的配置文件需要再此标名那个目录下
+          search-paths:
+            - Spring-Cloud-Config
+            - Spring-Cloud-Config2
+          username: Wilson-Lai-Zzz #Git仓库用户名
+          password: zzz934330427 #Git仓库密码
+      label: master #分支
+#添加rabbitMQ
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+# Eureka Client相关配置
+eureka:
+  client:
+    register-with-eureka: true #true表示是否将自己注册到EurekaServer默认为true
+    fetch-registry: true #是否从EurekaServer抓取已有的注册信息，默认true，单节点无所谓，集群必须设置为true才能配合ribbon使用负载均衡
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka #集群版本的，将其注册到多个注册中心
+  #      defaultZone: http://localhost:7001/eureka #注册中心地址（单机注册中心版本）
+  instance:
+    instance-id: cloud-config-center3344 #完善Eureka Server的服务信息，一般设置为服务器ip:端口
+    prefer-ip-address: true #访问路径可以显式ip地址
+    lease-renewal-interval-in-seconds: 1      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 2  # 发呆时间，即服务续约到期时间（缺省为90s）
+
+
+#rabbitMq相关配置，暴露Bus刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'
