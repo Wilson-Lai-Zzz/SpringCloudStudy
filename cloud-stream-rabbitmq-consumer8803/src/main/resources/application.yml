@@ -1,9 +1,9 @@
 server:
-  port: 8801
+  port: 8803
 
 spring:
   application:
-    name: cloud-rebbitmq-providerd
+    name: cloud-rebbitmq-consumer
   cloud:
     stream:
       binders: #在此处配置要绑定的rabbitmq的服务信息
@@ -17,10 +17,11 @@ spring:
                 username: guest
                 password: guest
       bindings: #服务的整合处理
-        output: #这个名字是一个通过的名称——————生产者
+        input: #这个名字是一个通过的名称————消费者
           destination: studyExchange # 表示要使用的Exchange名称定义
           content-type: application/json #设置消息类型，本次未json，文本则设置“text/plain”
           binder: defaultRabbit  #设置要绑定的消息服务具体设置
+          group: zzz #分组
 
 # Eureka Client相关配置
 eureka:
@@ -32,7 +33,7 @@ eureka:
       defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka #集群版本的，将其注册到多个注册中心
   #      defaultZone: http://localhost:7001/eureka #注册中心地址（单台注册中心）
   instance:
-    instance-id: cloud-rebbitmq-providerd8801 #完善Eureka Server的服务信息，一般设置为服务器ip:端口
+    instance-id: cloud-rebbitmq-consumerd8803 #完善Eureka Server的服务信息，一般设置为服务器ip:端口
     prefer-ip-address: true #访问路径可以显式ip地址
     lease-renewal-interval-in-seconds: 5      # 心跳时间，即服务续约间隔时间（缺省为30s）
     lease-expiration-duration-in-seconds: 10  # 发呆时间，即服务续约到期时间（缺省为90s）

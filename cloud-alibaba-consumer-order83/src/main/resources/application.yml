@@ -1,0 +1,14 @@
+server:
+  port: 83
+spring:
+  application:
+    name: CLOUD-ALIBABA-ORDER
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+#消费者将去访问的微服务名称（服务提供者的名称）
+service-url:
+  nacos-user-service: http://CLOUD-ALIBABA-PROVIDER-PAYMENT
+
